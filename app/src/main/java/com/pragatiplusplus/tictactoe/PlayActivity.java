@@ -3,6 +3,7 @@ package com.pragatiplusplus.tictactoe;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +18,7 @@ public class PlayActivity extends ActionBarActivity {
     String secondPlayer;
     int turn = 0 ;
     private Button b1 , b2, b3, b4, b5,b6,b7,b8,b9;
-    private EditText result;
-    private boolean flag = false;
+    private TextView result;
     public void createButton() {
          b1 = (Button) findViewById(R.id.row1col1);
          b2 = (Button) findViewById(R.id.row1col2);
@@ -29,11 +29,21 @@ public class PlayActivity extends ActionBarActivity {
          b7 = (Button) findViewById(R.id.row3col1);
          b8 = (Button) findViewById(R.id.row3col2);
          b9 = (Button) findViewById(R.id.row3col3);
-        result = (EditText) findViewById(R.id.output);
+        result = (TextView)findViewById(R.id.output);
     }
+public boolean isDraw()
+{
+    boolean flag = false;
 
+    if(!TextUtils.isEmpty(b1.getText()) &&  !TextUtils.isEmpty(b2.getText()) && !TextUtils.isEmpty(b3.getText())
+            && !TextUtils.isEmpty(b4.getText()) && !TextUtils.isEmpty(b5.getText()) && !TextUtils.isEmpty(b6.getText())
+            && TextUtils.isEmpty(b7.getText()) && TextUtils.isEmpty(b8.getText()) && TextUtils.isEmpty(b9.getText()))
+        flag = true;
+    return flag;
+}
     public boolean isWinner(String chance)
     {
+        boolean flag = false;
        if(b1.getText().equals(b2.getText())&& b2.getText().equals(b3.getText()) && b3.getText().equals(chance))
            flag = true;
         else if(b4.getText().equals(b5.getText())&& b5.getText().equals(b6.getText()) && b6.getText().equals(chance))
@@ -55,6 +65,18 @@ public class PlayActivity extends ActionBarActivity {
 
 
     }
+    public void  setState(boolean flag)
+    {
+       b1.setEnabled(flag);
+       b2.setEnabled(flag);
+       b3.setEnabled(flag);
+       b4.setEnabled(flag);
+       b5.setEnabled(flag);
+       b6.setEnabled(flag);
+       b7.setEnabled(flag);
+       b8.setEnabled(flag);
+       b9.setEnabled(flag);
+    }
     public void getTurn(View v)
     {
         Button play= (Button)findViewById(v.getId());
@@ -69,8 +91,18 @@ public class PlayActivity extends ActionBarActivity {
 
            boolean check=  isWinner("X");
             if(check)
-                result.setText("WIN");
+            {
+                result.setText(firstPlayer+ " WINS THE GAME");
+                setState(false);
 
+            }
+            else
+            {
+                boolean check2 = isDraw();
+                if(check2)
+                    result.setText("DRAW");
+
+            }
 
 
         }
@@ -85,7 +117,17 @@ public class PlayActivity extends ActionBarActivity {
             }
   boolean check= isWinner("O");
             if(check)
-            result.setText("WIN");
+            {
+                result.setText(secondPlayer+"  WINS THE GAME");
+                setState(false);
+            }
+            else
+            {
+                boolean check2 = isDraw();
+                if(check2)
+                    result.setText("DRAW");
+            }
+
 
 
         }
@@ -94,23 +136,15 @@ public class PlayActivity extends ActionBarActivity {
     public void newGame(View v)
     {
         b1.setText("");
-        b1.setEnabled(true);
         b2.setText("");
-        b2.setEnabled(true);
         b3.setText("");
-        b3.setEnabled(true);
         b4.setText("");
-        b4.setEnabled(true);
         b5.setText("");
-        b5.setEnabled(true);
         b6.setText("");
-        b6.setEnabled(true);
         b7.setText("");
-        b7.setEnabled(true);
         b8.setText("");
-        b8.setEnabled(true);
         b9.setText("");
-        b9.setEnabled(true);
+        setState(true);
         result.setText("");
         turn = 0;
     }
@@ -118,6 +152,8 @@ public class PlayActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        firstPlayer = getIntent().getStringExtra("first");
+        secondPlayer = getIntent().getStringExtra("second");
         createButton();
     }
 

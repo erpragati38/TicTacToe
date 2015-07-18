@@ -34,8 +34,8 @@ public class DashBoard extends ActionBarActivity {
             p1.setError("Player1 or player 2 is required");
         else {
             Intent intent = new Intent(DashBoard.this, PlayActivity.class);
-            intent.putExtra("first", p1.toString());
-            intent.putExtra("second", p2.toString());
+            intent.putExtra("first", firstPlayer);
+            intent.putExtra("second", secondPlayer);
             startActivity(intent);
         }
 
