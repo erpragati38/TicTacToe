@@ -37,7 +37,7 @@ public boolean isDraw()
 
     if(!TextUtils.isEmpty(b1.getText()) &&  !TextUtils.isEmpty(b2.getText()) && !TextUtils.isEmpty(b3.getText())
             && !TextUtils.isEmpty(b4.getText()) && !TextUtils.isEmpty(b5.getText()) && !TextUtils.isEmpty(b6.getText())
-            && TextUtils.isEmpty(b7.getText()) && TextUtils.isEmpty(b8.getText()) && TextUtils.isEmpty(b9.getText()))
+            && !TextUtils.isEmpty(b7.getText()) && !TextUtils.isEmpty(b8.getText()) && !TextUtils.isEmpty(b9.getText()))
         flag = true;
     return flag;
 }
@@ -59,6 +59,9 @@ public boolean isDraw()
         else if(b1.getText().equals(b5.getText())&& b5.getText().equals(b8.getText()) && b8.getText().equals(chance))
            flag = true;
         else if(b3.getText().equals(b5.getText()) && b5.getText().equals(b7.getText())&& b7.getText().equals(chance))
+           flag = true;
+
+        else if(b1.getText().equals(b5.getText()) && b5.getText().equals(b9.getText()) && b9.getText().equals(chance))
            flag = true;
 
         return flag;
