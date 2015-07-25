@@ -1,43 +1,38 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DashBoard"
-    android:orientation="vertical">
-<ImageView
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/background"
-    android:id = "@+id/ImageId"/>
-    <TextView android:text="@string/tic_tac_toe" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:textColor="#000"
-        android:layout_marginLeft="70dp"
-        />
+    android:orientation="vertical"
+    android:background="@drawable/bg_dashboard">
+
+
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id = "@+id/player1"
         android:hint="Enter player1"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="100dp"
         android:textColor="#ffffff"/>
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id = "@+id/player2"
         android:hint="Enter player2"
-        android:layout_below="@id/player1"
-        android:layout_marginLeft="30dp"
-        android:textColor="#ffffff"/>
+        android:layout_margin="30dp"
+        android:textColor="#ffffff"
+        />
 
     <Button
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="startPlay"
         android:text="PLAY"
         android:layout_centerInParent="true"
         />
-</RelativeLayout>
+</LinearLayout>
