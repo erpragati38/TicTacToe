@@ -2,5 +2,5 @@
 <resources>
     <color name="bg_color">#999</color>
     <color name ="main_color">#b98</color>
-    <color name="divider">#03A9F4</color>
+    <color name="divider">#E64A19</color>
 </resources>
