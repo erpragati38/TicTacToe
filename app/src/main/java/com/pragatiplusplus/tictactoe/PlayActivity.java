@@ -16,128 +16,105 @@ public class PlayActivity extends ActionBarActivity {
 
     String firstPlayer;
     String secondPlayer;
-    int turn = 0 ;
-    private Button b1 , b2, b3, b4, b5,b6,b7,b8,b9;
+    int turn = 0;
+    private Button b1, b2, b3, b4, b5, b6, b7, b8, b9;
     private TextView result;
+
     public void createButton() {
-         b1 = (Button) findViewById(R.id.row1col1);
-         b2 = (Button) findViewById(R.id.row1col2);
-         b3 = (Button) findViewById(R.id.row1col3);
-         b4 = (Button) findViewById(R.id.row2col1);
-         b5 = (Button) findViewById(R.id.row2col2);
-         b6 = (Button) findViewById(R.id.row2col3);
-         b7 = (Button) findViewById(R.id.row3col1);
-         b8 = (Button) findViewById(R.id.row3col2);
-         b9 = (Button) findViewById(R.id.row3col3);
-        result = (TextView)findViewById(R.id.output);
+        b1 = (Button) findViewById(R.id.row1col1);
+        b2 = (Button) findViewById(R.id.row1col2);
+        b3 = (Button) findViewById(R.id.row1col3);
+        b4 = (Button) findViewById(R.id.row2col1);
+        b5 = (Button) findViewById(R.id.row2col2);
+        b6 = (Button) findViewById(R.id.row2col3);
+        b7 = (Button) findViewById(R.id.row3col1);
+        b8 = (Button) findViewById(R.id.row3col2);
+        b9 = (Button) findViewById(R.id.row3col3);
+        result = (TextView) findViewById(R.id.output);
     }
-public boolean isDraw()
-{
-    boolean flag = false;
 
-    if(!TextUtils.isEmpty(b1.getText()) &&  !TextUtils.isEmpty(b2.getText()) && !TextUtils.isEmpty(b3.getText())
-            && !TextUtils.isEmpty(b4.getText()) && !TextUtils.isEmpty(b5.getText()) && !TextUtils.isEmpty(b6.getText())
-            && !TextUtils.isEmpty(b7.getText()) && !TextUtils.isEmpty(b8.getText()) && !TextUtils.isEmpty(b9.getText()))
-        flag = true;
-    return flag;
-}
-    public boolean isWinner(String chance)
-    {
+    public boolean isDraw() {
         boolean flag = false;
-       if(b1.getText().equals(b2.getText())&& b2.getText().equals(b3.getText()) && b3.getText().equals(chance))
-           flag = true;
-        else if(b4.getText().equals(b5.getText())&& b5.getText().equals(b6.getText()) && b6.getText().equals(chance))
-           flag = true;
-        else if(b7.getText().equals(b8.getText()) && b8.getText().equals(b9.getText()) && b9.getText().equals(chance))
-           flag = true;
-        else if(b1.getText().equals(b4.getText())&& b4.getText().equals(b7.getText()) && b7.getText().equals(chance))
-           flag = true;
-        else if(b2.getText().equals(b5.getText()) && b5.getText().equals(b8.getText()) && b8.getText().equals(chance))
-           flag = true;
-        else if(b3.getText().equals(b6.getText())&& b6.getText().equals(b9.getText()) && b9.getText().equals(chance))
-           flag = true;
-        else if(b1.getText().equals(b5.getText())&& b5.getText().equals(b8.getText()) && b8.getText().equals(chance))
-           flag = true;
-        else if(b3.getText().equals(b5.getText()) && b5.getText().equals(b7.getText())&& b7.getText().equals(chance))
-           flag = true;
 
-        else if(b1.getText().equals(b5.getText()) && b5.getText().equals(b9.getText()) && b9.getText().equals(chance))
-           flag = true;
+        if (!TextUtils.isEmpty(b1.getText()) && !TextUtils.isEmpty(b2.getText()) && !TextUtils.isEmpty(b3.getText())
+                && !TextUtils.isEmpty(b4.getText()) && !TextUtils.isEmpty(b5.getText()) && !TextUtils.isEmpty(b6.getText())
+                && !TextUtils.isEmpty(b7.getText()) && !TextUtils.isEmpty(b8.getText()) && !TextUtils.isEmpty(b9.getText()))
+            flag = true;
+        return flag;
+    }
+
+    public boolean isWinner(String chance) {
+        boolean flag = false;
+        if (b1.getText().equals(b2.getText()) && b2.getText().equals(b3.getText()) && b3.getText().equals(chance))
+            flag = true;
+        else if (b4.getText().equals(b5.getText()) && b5.getText().equals(b6.getText()) && b6.getText().equals(chance))
+            flag = true;
+        else if (b7.getText().equals(b8.getText()) && b8.getText().equals(b9.getText()) && b9.getText().equals(chance))
+            flag = true;
+        else if (b1.getText().equals(b4.getText()) && b4.getText().equals(b7.getText()) && b7.getText().equals(chance))
+            flag = true;
+        else if (b2.getText().equals(b5.getText()) && b5.getText().equals(b8.getText()) && b8.getText().equals(chance))
+            flag = true;
+        else if (b3.getText().equals(b6.getText()) && b6.getText().equals(b9.getText()) && b9.getText().equals(chance))
+            flag = true;
+
+        else if (b3.getText().equals(b5.getText()) && b5.getText().equals(b7.getText()) && b7.getText().equals(chance))
+            flag = true;
+
+        else if (b1.getText().equals(b5.getText()) && b5.getText().equals(b9.getText()) && b9.getText().equals(chance))
+            flag = true;
 
         return flag;
 
 
     }
-    public void  setState(boolean flag)
-    {
-       b1.setEnabled(flag);
-       b2.setEnabled(flag);
-       b3.setEnabled(flag);
-       b4.setEnabled(flag);
-       b5.setEnabled(flag);
-       b6.setEnabled(flag);
-       b7.setEnabled(flag);
-       b8.setEnabled(flag);
-       b9.setEnabled(flag);
+
+    public void setState(boolean flag) {
+        b1.setEnabled(flag);
+        b2.setEnabled(flag);
+        b3.setEnabled(flag);
+        b4.setEnabled(flag);
+        b5.setEnabled(flag);
+        b6.setEnabled(flag);
+        b7.setEnabled(flag);
+        b8.setEnabled(flag);
+        b9.setEnabled(flag);
     }
-    public void getTurn(View v)
-    {
-        Button play= (Button)findViewById(v.getId());
-        if(turn == 0)
-        {
-           if(play.getText().equals(""))
-           {
-               play.setText("X");
-               play.setEnabled(false);
-               turn++;
-           }
 
-           boolean check=  isWinner("X");
-            if(check)
-            {
-                result.setText(firstPlayer+ " WINS THE GAME");
+    public void setValue(Button play, String val, String playerName) {
+        if (play.getText().equals("")) {
+            play.setText(val);
+            play.setEnabled(false);
+            boolean check = isWinner(val);
+
+            if (check) {
+                result.setText(playerName + " WINS THE GAME");
                 setState(false);
 
-            }
-            else
-            {
+            } else {
                 boolean check2 = isDraw();
-                if(check2)
-                    result.setText("DRAW");
-
-            }
-
-
-        }
-
-        if(turn == 1)
-        {
-            if(play.getText().equals(""))
-            {
-                play.setText("O");
-                play.setEnabled(false);
-                turn--;
-            }
-  boolean check= isWinner("O");
-            if(check)
-            {
-                result.setText(secondPlayer+"  WINS THE GAME");
-                setState(false);
-            }
-            else
-            {
-                boolean check2 = isDraw();
-                if(check2)
+                if (check2)
                     result.setText("DRAW");
             }
-
-
-
         }
     }
 
-    public void newGame(View v)
-    {
+    public void getTurn(View v) {
+        Button play = (Button) findViewById(v.getId());
+        if (turn == 0) {
+            setValue(play, "X", firstPlayer);
+            turn++;
+
+
+        } else if (turn == 1) {
+            setValue(play, "O", secondPlayer);
+            turn--;
+        }
+
+
+    }
+
+    public void newGame(View v) {
         b1.setText("");
         b2.setText("");
         b3.setText("");
@@ -151,6 +128,7 @@ public boolean isDraw()
         result.setText("");
         turn = 0;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,8 +144,6 @@ public boolean isDraw()
         getMenuInflater().inflate(R.menu.menu_play, menu);
         return true;
     }
-
-
 
 
     @Override
