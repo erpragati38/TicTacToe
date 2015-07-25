@@ -1,15 +1,13 @@
 package com.pragatiplusplus.tictactoe;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.pragatiplusplus.tictactoe.ui.view.TTTView;
 
 
 public class PlayActivity extends ActionBarActivity {
@@ -17,51 +15,69 @@ public class PlayActivity extends ActionBarActivity {
     String firstPlayer;
     String secondPlayer;
     int turn = 0;
-    private Button b1, b2, b3, b4, b5, b6, b7, b8, b9;
+    private TTTView b1, b2, b3, b4, b5, b6, b7, b8, b9;
     private TextView result;
+    private int mCircleResId;
+    private int mCrossResId;
 
     public void createButton() {
-        b1 = (Button) findViewById(R.id.row1col1);
-        b2 = (Button) findViewById(R.id.row1col2);
-        b3 = (Button) findViewById(R.id.row1col3);
-        b4 = (Button) findViewById(R.id.row2col1);
-        b5 = (Button) findViewById(R.id.row2col2);
-        b6 = (Button) findViewById(R.id.row2col3);
-        b7 = (Button) findViewById(R.id.row3col1);
-        b8 = (Button) findViewById(R.id.row3col2);
-        b9 = (Button) findViewById(R.id.row3col3);
+
+        b1 = (TTTView) findViewById(R.id.row1col1);
+        setXYDrawable(b1);
+        b2 = (TTTView) findViewById(R.id.row1col2);
+        setXYDrawable(b2);
+        b3 = (TTTView) findViewById(R.id.row1col3);
+        setXYDrawable(b3);
+        b4 = (TTTView) findViewById(R.id.row2col1);
+        setXYDrawable(b4);
+        b5 = (TTTView) findViewById(R.id.row2col2);
+        setXYDrawable(b5);
+        b6 = (TTTView) findViewById(R.id.row2col3);
+        setXYDrawable(b6);
+        b7 = (TTTView) findViewById(R.id.row3col1);
+        setXYDrawable(b7);
+        b8 = (TTTView) findViewById(R.id.row3col2);
+        setXYDrawable(b8);
+        b9 = (TTTView) findViewById(R.id.row3col3);
+        setXYDrawable(b9);
         result = (TextView) findViewById(R.id.output);
+        newGame(result);
+    }
+
+    private void setXYDrawable(TTTView view) {
+        view.setCircleDrawable(mCircleResId);
+        view.setCrossDrawable(mCrossResId);
     }
 
     public boolean isDraw() {
         boolean flag = false;
 
-        if (!TextUtils.isEmpty(b1.getText()) && !TextUtils.isEmpty(b2.getText()) && !TextUtils.isEmpty(b3.getText())
-                && !TextUtils.isEmpty(b4.getText()) && !TextUtils.isEmpty(b5.getText()) && !TextUtils.isEmpty(b6.getText())
-                && !TextUtils.isEmpty(b7.getText()) && !TextUtils.isEmpty(b8.getText()) && !TextUtils.isEmpty(b9.getText()))
+        if (b1.getState() != TTTView.State.EMPTY && b2.getState() != TTTView.State.EMPTY && b3.getState() != TTTView.State.EMPTY
+                && b4.getState() != TTTView.State.EMPTY && b5.getState() != TTTView.State.EMPTY && b6.getState() != TTTView.State.EMPTY
+                && b7.getState() != TTTView.State.EMPTY && b8.getState() != TTTView.State.EMPTY && b9.getState() != TTTView.State.EMPTY)
             flag = true;
         return flag;
     }
 
-    public boolean isWinner(String chance) {
+    public boolean isWinner(TTTView.State chance) {
         boolean flag = false;
-        if (b1.getText().equals(b2.getText()) && b2.getText().equals(b3.getText()) && b3.getText().equals(chance))
+        if (b1.getState() == chance && b2.getState() == chance && b3.getState() == chance)
             flag = true;
-        else if (b4.getText().equals(b5.getText()) && b5.getText().equals(b6.getText()) && b6.getText().equals(chance))
+        else if (b4.getState() == chance && b5.getState() == chance && b6.getState() == chance)
             flag = true;
-        else if (b7.getText().equals(b8.getText()) && b8.getText().equals(b9.getText()) && b9.getText().equals(chance))
+        else if (b7.getState() == chance && b8.getState() == chance && b9.getState() == chance)
             flag = true;
-        else if (b1.getText().equals(b4.getText()) && b4.getText().equals(b7.getText()) && b7.getText().equals(chance))
+        else if (b1.getState() == chance && b4.getState() == chance && b7.getState() == chance)
             flag = true;
-        else if (b2.getText().equals(b5.getText()) && b5.getText().equals(b8.getText()) && b8.getText().equals(chance))
+        else if (b2.getState() == chance && b5.getState() == chance && b8.getState() == chance)
             flag = true;
-        else if (b3.getText().equals(b6.getText()) && b6.getText().equals(b9.getText()) && b9.getText().equals(chance))
-            flag = true;
-
-        else if (b3.getText().equals(b5.getText()) && b5.getText().equals(b7.getText()) && b7.getText().equals(chance))
+        else if (b3.getState() == chance && b6.getState() == chance && b9.getState() == chance)
             flag = true;
 
-        else if (b1.getText().equals(b5.getText()) && b5.getText().equals(b9.getText()) && b9.getText().equals(chance))
+        else if (b3.getState() == chance && b5.getState() == chance && b7.getState() == chance)
+            flag = true;
+
+        else if (b1.getState() == chance && b5.getState() == chance && b9.getState() == chance)
             flag = true;
 
         return flag;
@@ -69,7 +85,7 @@ public class PlayActivity extends ActionBarActivity {
 
     }
 
-    public void setState(boolean flag) {
+    public void setEnable(boolean flag) {
         b1.setEnabled(flag);
         b2.setEnabled(flag);
         b3.setEnabled(flag);
@@ -81,33 +97,31 @@ public class PlayActivity extends ActionBarActivity {
         b9.setEnabled(flag);
     }
 
-    public void setValue(Button play, String val, String playerName) {
-        if (play.getText().equals("")) {
-            play.setText(val);
+    public void setValue(TTTView play, TTTView.State val, String playerName) {
+        if (play.getState() == TTTView.State.EMPTY) {
+            play.setState(val);
             play.setEnabled(false);
-            boolean check = isWinner(val);
 
-            if (check) {
+            if (isWinner(val)) {
                 result.setText(playerName + " WINS THE GAME");
-                setState(false);
+                setEnable(false);
 
-            } else {
-                boolean check2 = isDraw();
-                if (check2)
-                    result.setText("DRAW");
+            } else if(isDraw()){
+                result.setText("DRAW");
+                setEnable(false);
             }
         }
     }
 
     public void getTurn(View v) {
-        Button play = (Button) findViewById(v.getId());
+        TTTView play = (TTTView) findViewById(v.getId());
         if (turn == 0) {
-            setValue(play, "X", firstPlayer);
+            setValue(play, TTTView.State.CROSS, firstPlayer);
             turn++;
 
 
         } else if (turn == 1) {
-            setValue(play, "O", secondPlayer);
+            setValue(play, TTTView.State.CIRCLE, secondPlayer);
             turn--;
         }
 
@@ -115,16 +129,16 @@ public class PlayActivity extends ActionBarActivity {
     }
 
     public void newGame(View v) {
-        b1.setText("");
-        b2.setText("");
-        b3.setText("");
-        b4.setText("");
-        b5.setText("");
-        b6.setText("");
-        b7.setText("");
-        b8.setText("");
-        b9.setText("");
-        setState(true);
+        b1.setState(TTTView.State.EMPTY);
+        b2.setState(TTTView.State.EMPTY);
+        b3.setState(TTTView.State.EMPTY);
+        b4.setState(TTTView.State.EMPTY);
+        b5.setState(TTTView.State.EMPTY);
+        b6.setState(TTTView.State.EMPTY);
+        b7.setState(TTTView.State.EMPTY);
+        b8.setState(TTTView.State.EMPTY);
+        b9.setState(TTTView.State.EMPTY);
+        setEnable(true);
         result.setText("");
         turn = 0;
     }
@@ -135,6 +149,8 @@ public class PlayActivity extends ActionBarActivity {
         setContentView(R.layout.activity_play);
         firstPlayer = getIntent().getStringExtra("first");
         secondPlayer = getIntent().getStringExtra("second");
+        mCircleResId = R.drawable.eraser;
+        mCrossResId = R.drawable.sharpner;
         createButton();
     }
 

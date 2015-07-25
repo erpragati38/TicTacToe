@@ -1,6 +1,8 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -15,124 +17,98 @@
         android:layout_width="wrap_content"
         android:onClick="newGame"
         android:text="NEW GAME"
-        android:id = "@+id/newButton"/>
+        android:id="@+id/newButton" />
 
     <TableRow>
-        android:layout_height = "wrap_content"
-        android:layout_width = "wrap_content"
-        android:id = "@i+d/row1"
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
             android:id="@+id/row1col1"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
             android:onClick="getTurn"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id = "@+id/row1col2"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
-            android:onClick="getTurn"
+            android:background="@drawable/border" />
 
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
+            android:id="@+id/row1col2"
+            android:onClick="getTurn"
+            android:background="@drawable/border" />
+
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
             android:id="@+id/row1col3"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
             android:onClick="getTurn"
-
-            />
+            android:background="@drawable/border" />
 
 
     </TableRow>
 
 
     <TableRow>
-        android:layout_height = "wrap_content"
-        android:layout_width = "wrap_content"
-        android:id = "@i+d/row2"
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
             android:id="@+id/row2col1"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
-            android:onClick="getTurn"
 
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id = "@+id/row2col2"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
             android:onClick="getTurn"
+            android:background="@drawable/border" />
 
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
+            android:id="@+id/row2col2"
+
+            android:onClick="getTurn"
+            android:background="@drawable/border" />
+
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
             android:id="@+id/row2col3"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
-            android:onClick="getTurn"
-            />
+            android:background="@drawable/border"
+            android:onClick="getTurn" />
 
 
     </TableRow>
 
     <TableRow>
-        android:layout_height = "wrap_content"
-        android:layout_width = "wrap_content"
-        android:id = "@i+d/row3"
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
             android:id="@+id/row3col1"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
             android:onClick="getTurn"
+            android:background="@drawable/border" />
 
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id = "@+id/row3col2"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
-            android:onClick="getTurn"
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
+            android:id="@+id/row3col2"
+            android:background="@drawable/border"
+            android:onClick="getTurn" />
 
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.pragatiplusplus.tictactoe.ui.view.TTTView
+            android:padding="@dimen/padding_small"
+            android:layout_width="@dimen/tttv_size"
+            android:layout_height="@dimen/tttv_size"
             android:id="@+id/row3col3"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dp"
             android:onClick="getTurn"
-
-            />
-
-
+            android:background="@drawable/border" />
     </TableRow>
-    <TextView android:layout_width="match_parent"
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/output"/>
+        android:id="@+id/output" />
 </TableLayout>
