@@ -46,7 +46,6 @@ public class PlayActivity extends ActionBarActivity {
 
         result = (TextView) findViewById(R.id.output);
         newGame(result);
-        mTttBoard = new TTTView[3][3];
 
     }
 
