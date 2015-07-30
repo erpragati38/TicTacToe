@@ -15,38 +15,38 @@ public class PlayActivity extends ActionBarActivity {
     String firstPlayer;
     String secondPlayer;
     int turn = 0;
-    private TTTView b1, b2, b3, b4, b5, b6, b7, b8, b9;
     private TextView result;
     private int mCircleResId;
     private int mCrossResId;
-    TTTView tempButton[][];
+    TTTView mTttBoard[][];
 
     /**
      * Create Buttons
      */
     public void createButton() {
-        tempButton = new TTTView[3][3];
-        tempButton[0][0] = (TTTView) findViewById(R.id.row1col1);
-        setXYDrawable(tempButton[0][0]);
-        tempButton[0][1] = (TTTView) findViewById(R.id.row1col2);
-        setXYDrawable(tempButton[0][1]);
-        tempButton[0][2] = (TTTView) findViewById(R.id.row1col3);
-        setXYDrawable(tempButton[0][2]);
-        tempButton[1][0] = (TTTView) findViewById(R.id.row2col1);
-        setXYDrawable(tempButton[1][0]);
-        tempButton[1][1] = (TTTView) findViewById(R.id.row2col2);
-        setXYDrawable(tempButton[1][1]);
-        tempButton[1][2] = (TTTView) findViewById(R.id.row2col3);
-        setXYDrawable(tempButton[1][2]);
-        tempButton[2][0] = (TTTView) findViewById(R.id.row3col1);
-        setXYDrawable(tempButton[2][0]);
-        tempButton[2][1] = (TTTView) findViewById(R.id.row3col2);
-        setXYDrawable(tempButton[2][1]);
-        tempButton[2][2] = (TTTView) findViewById(R.id.row3col3);
-        setXYDrawable(tempButton[2][2]);
+        mTttBoard = new TTTView[3][3];
+        mTttBoard[0][0] = (TTTView) findViewById(R.id.row1col1);
+        setXYDrawable(mTttBoard[0][0]);
+        mTttBoard[0][1] = (TTTView) findViewById(R.id.row1col2);
+        setXYDrawable(mTttBoard[0][1]);
+        mTttBoard[0][2] = (TTTView) findViewById(R.id.row1col3);
+        setXYDrawable(mTttBoard[0][2]);
+        mTttBoard[1][0] = (TTTView) findViewById(R.id.row2col1);
+        setXYDrawable(mTttBoard[1][0]);
+        mTttBoard[1][1] = (TTTView) findViewById(R.id.row2col2);
+        setXYDrawable(mTttBoard[1][1]);
+        mTttBoard[1][2] = (TTTView) findViewById(R.id.row2col3);
+        setXYDrawable(mTttBoard[1][2]);
+        mTttBoard[2][0] = (TTTView) findViewById(R.id.row3col1);
+        setXYDrawable(mTttBoard[2][0]);
+        mTttBoard[2][1] = (TTTView) findViewById(R.id.row3col2);
+        setXYDrawable(mTttBoard[2][1]);
+        mTttBoard[2][2] = (TTTView) findViewById(R.id.row3col3);
+        setXYDrawable(mTttBoard[2][2]);
 
         result = (TextView) findViewById(R.id.output);
-        newGame(result); tempButton = new TTTView[3][3];
+        newGame(result);
+        mTttBoard = new TTTView[3][3];
 
     }
 
@@ -56,63 +56,55 @@ public class PlayActivity extends ActionBarActivity {
     }
 
     /**
-     *
      * Checks Draw State
      */
     public boolean isDraw() {
-        boolean flag = false;
-        for(int index = 0 ; index < tempButton.length ; index++) {
-            for (int count = 0; count < tempButton.length; count++) {
-                if (tempButton[index][count].getState() == TTTView.State.EMPTY)
+
+        for (int index = 0; index < mTttBoard.length; index++) {
+            for (int count = 0; count < mTttBoard.length; count++) {
+                if (mTttBoard[index][count].getState() == TTTView.State.EMPTY) {
                     return false;
+                }
             }
         }
         return true;
-}
+    }
 
     /**
-     *
-     *
      * Check Winner of the Game
      */
     public boolean isWinner(TTTView.State chance) {
-      boolean flag = false;
-        for(int index = 0 ; index < tempButton.length ; index++)
-        {
-
-
-           if((tempButton[index][0].getState()== chance)&& (tempButton[index][1].getState() == chance) && (tempButton[index][2].getState() == chance))
-               return true;
+        for (int index = 0; index < mTttBoard.length; index++) {
+            if ((mTttBoard[index][0].getState() == chance) && (mTttBoard[index][1].getState() == chance) && (mTttBoard[index][2].getState() == chance)) {
+                return true;
+            }
         }
 
-        for(int count = 0 ; count < tempButton.length ; count++)
-        {
+        for (int count = 0; count < mTttBoard.length; count++) {
+            if ((mTttBoard[0][count].getState() == chance) && (mTttBoard[1][count].getState() == chance) && (mTttBoard[2][count].getState() == chance)) {
+                return true;
+            }
 
-
-            if((tempButton[0][count].getState() == chance)&& (tempButton[1][count].getState() == chance) && (tempButton[2][count].getState() == chance))
-                return  true;
         }
 
-         if (tempButton[0][2].getState() == chance && tempButton[1][1].getState() == chance && tempButton[2][0].getState() == chance)
-            flag = true;
+        if (mTttBoard[0][2].getState() == chance && mTttBoard[1][1].getState() == chance && mTttBoard[2][0].getState() == chance) {
+            return  true;
+        } else if (mTttBoard[0][0].getState() == chance && mTttBoard[1][1].getState() == chance && mTttBoard[2][2].getState() == chance) {
+            return true;
 
-        else if(tempButton[0][0].getState() == chance && tempButton[1][1].getState() == chance && tempButton[2][2].getState() == chance)
-            flag = true;
-
-        return flag;
+        }
+        return false;
 
 
     }
 
     /**
      * Enable/Disable View
-     *
      */
     public void setEnable(boolean flag) {
-        for(int index = 0 ; index <tempButton.length ; index++)
-        {
-            for(int count = 0; count < tempButton.length ; count++)
-                tempButton[index][count].setEnabled(flag);
+        for (int index = 0; index < mTttBoard.length; index++) {
+            for (int count = 0; count < mTttBoard.length; count++)
+                mTttBoard[index][count].setEnabled(flag);
         }
     }
 
@@ -125,7 +117,7 @@ public class PlayActivity extends ActionBarActivity {
                 result.setText(playerName + " WINS THE GAME");
                 setEnable(false);
 
-            } else if(isDraw()){
+            } else if (isDraw()) {
                 result.setText("DRAW");
                 setEnable(false);
             }
@@ -133,7 +125,6 @@ public class PlayActivity extends ActionBarActivity {
     }
 
     /**
-     *
      * Decides turn of a player
      */
     public void getTurn(View v) {
@@ -152,15 +143,13 @@ public class PlayActivity extends ActionBarActivity {
     }
 
     /**
-     *
      * Reset New Game
      */
     public void newGame(View v) {
 
-        for(int index = 0 ; index < tempButton.length ; index++)
-        {
-            for(int count = 0 ; count < tempButton.length ; count++)
-                tempButton[index][count].setState(TTTView.State.EMPTY);
+        for (int index = 0; index < mTttBoard.length; index++) {
+            for (int count = 0; count < mTttBoard.length; count++)
+                mTttBoard[index][count].setState(TTTView.State.EMPTY);
         }
         setEnable(true);
         result.setText("");
