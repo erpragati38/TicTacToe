@@ -19,27 +19,32 @@ public class PlayActivity extends ActionBarActivity {
     private TextView result;
     private int mCircleResId;
     private int mCrossResId;
+    TTTView tempButton[][];
 
+    /**
+     * Create Buttons
+     */
     public void createButton() {
+        tempButton = new TTTView[3][3];
+        tempButton[0][0] = (TTTView) findViewById(R.id.row1col1);
+        setXYDrawable(tempButton[0][0]);
+        tempButton[0][1] = (TTTView) findViewById(R.id.row1col2);
+        setXYDrawable(tempButton[0][1]);
+        tempButton[0][2] = (TTTView) findViewById(R.id.row1col3);
+        setXYDrawable(tempButton[0][2]);
+        tempButton[1][0] = (TTTView) findViewById(R.id.row2col1);
+        setXYDrawable(tempButton[1][0]);
+        tempButton[1][1] = (TTTView) findViewById(R.id.row2col2);
+        setXYDrawable(tempButton[1][1]);
+        tempButton[1][2] = (TTTView) findViewById(R.id.row2col3);
+        setXYDrawable(tempButton[1][2]);
+        tempButton[2][0] = (TTTView) findViewById(R.id.row3col1);
+        setXYDrawable(tempButton[2][0]);
+        tempButton[2][1] = (TTTView) findViewById(R.id.row3col2);
+        setXYDrawable(tempButton[2][1]);
+        tempButton[2][2] = (TTTView) findViewById(R.id.row3col3);
+        setXYDrawable(tempButton[2][2]);
 
-        b1 = (TTTView) findViewById(R.id.row1col1);
-        setXYDrawable(b1);
-        b2 = (TTTView) findViewById(R.id.row1col2);
-        setXYDrawable(b2);
-        b3 = (TTTView) findViewById(R.id.row1col3);
-        setXYDrawable(b3);
-        b4 = (TTTView) findViewById(R.id.row2col1);
-        setXYDrawable(b4);
-        b5 = (TTTView) findViewById(R.id.row2col2);
-        setXYDrawable(b5);
-        b6 = (TTTView) findViewById(R.id.row2col3);
-        setXYDrawable(b6);
-        b7 = (TTTView) findViewById(R.id.row3col1);
-        setXYDrawable(b7);
-        b8 = (TTTView) findViewById(R.id.row3col2);
-        setXYDrawable(b8);
-        b9 = (TTTView) findViewById(R.id.row3col3);
-        setXYDrawable(b9);
         result = (TextView) findViewById(R.id.output);
         newGame(result);
     }
@@ -49,35 +54,48 @@ public class PlayActivity extends ActionBarActivity {
         view.setCrossDrawable(mCrossResId);
     }
 
+    /**
+     *
+     * Checks Draw State
+     */
     public boolean isDraw() {
         boolean flag = false;
+        for(int index = 0 ; index < tempButton.length ; index++) {
+            for (int count = 0; count < tempButton.length; count++) {
+                if (tempButton[index][count].getState() == TTTView.State.EMPTY)
+                    return false;
+            }
+        }
+        return true;
+}
 
-        if (b1.getState() != TTTView.State.EMPTY && b2.getState() != TTTView.State.EMPTY && b3.getState() != TTTView.State.EMPTY
-                && b4.getState() != TTTView.State.EMPTY && b5.getState() != TTTView.State.EMPTY && b6.getState() != TTTView.State.EMPTY
-                && b7.getState() != TTTView.State.EMPTY && b8.getState() != TTTView.State.EMPTY && b9.getState() != TTTView.State.EMPTY)
-            flag = true;
-        return flag;
-    }
-
+    /**
+     *
+     *
+     * Check Winner of the Game
+     */
     public boolean isWinner(TTTView.State chance) {
-        boolean flag = false;
-        if (b1.getState() == chance && b2.getState() == chance && b3.getState() == chance)
-            flag = true;
-        else if (b4.getState() == chance && b5.getState() == chance && b6.getState() == chance)
-            flag = true;
-        else if (b7.getState() == chance && b8.getState() == chance && b9.getState() == chance)
-            flag = true;
-        else if (b1.getState() == chance && b4.getState() == chance && b7.getState() == chance)
-            flag = true;
-        else if (b2.getState() == chance && b5.getState() == chance && b8.getState() == chance)
-            flag = true;
-        else if (b3.getState() == chance && b6.getState() == chance && b9.getState() == chance)
+      boolean flag = false;
+        for(int index = 0 ; index < tempButton.length ; index++)
+        {
+
+
+           if((tempButton[index][0].getState()== chance)&& (tempButton[index][1].getState() == chance) && (tempButton[index][2].getState() == chance))
+               return true;
+        }
+
+        for(int count = 0 ; count < tempButton.length ; count++)
+        {
+
+
+            if((tempButton[0][count].getState() == chance)&& (tempButton[1][count].getState() == chance) && (tempButton[2][count].getState() == chance))
+                return  true;
+        }
+
+         if (tempButton[0][2].getState() == chance && tempButton[1][1].getState() == chance && tempButton[2][0].getState() == chance)
             flag = true;
 
-        else if (b3.getState() == chance && b5.getState() == chance && b7.getState() == chance)
-            flag = true;
-
-        else if (b1.getState() == chance && b5.getState() == chance && b9.getState() == chance)
+        else if(tempButton[0][0].getState() == chance && tempButton[1][1].getState() == chance && tempButton[2][2].getState() == chance)
             flag = true;
 
         return flag;
@@ -85,16 +103,16 @@ public class PlayActivity extends ActionBarActivity {
 
     }
 
+    /**
+     * Enable/Disable View
+     *
+     */
     public void setEnable(boolean flag) {
-        b1.setEnabled(flag);
-        b2.setEnabled(flag);
-        b3.setEnabled(flag);
-        b4.setEnabled(flag);
-        b5.setEnabled(flag);
-        b6.setEnabled(flag);
-        b7.setEnabled(flag);
-        b8.setEnabled(flag);
-        b9.setEnabled(flag);
+        for(int index = 0 ; index <tempButton.length ; index++)
+        {
+            for(int count = 0; count < tempButton.length ; count++)
+                tempButton[index][count].setEnabled(flag);
+        }
     }
 
     public void setValue(TTTView play, TTTView.State val, String playerName) {
@@ -113,6 +131,10 @@ public class PlayActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     *
+     * Decides turn of a player
+     */
     public void getTurn(View v) {
         TTTView play = (TTTView) findViewById(v.getId());
         if (turn == 0) {
@@ -128,16 +150,17 @@ public class PlayActivity extends ActionBarActivity {
 
     }
 
+    /**
+     *
+     * Reset New Game
+     */
     public void newGame(View v) {
-        b1.setState(TTTView.State.EMPTY);
-        b2.setState(TTTView.State.EMPTY);
-        b3.setState(TTTView.State.EMPTY);
-        b4.setState(TTTView.State.EMPTY);
-        b5.setState(TTTView.State.EMPTY);
-        b6.setState(TTTView.State.EMPTY);
-        b7.setState(TTTView.State.EMPTY);
-        b8.setState(TTTView.State.EMPTY);
-        b9.setState(TTTView.State.EMPTY);
+
+        for(int index = 0 ; index < tempButton.length ; index++)
+        {
+            for(int count = 0 ; count < tempButton.length ; count++)
+                tempButton[index][count].setState(TTTView.State.EMPTY);
+        }
         setEnable(true);
         result.setText("");
         turn = 0;
