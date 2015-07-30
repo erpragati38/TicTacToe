@@ -46,7 +46,8 @@ public class PlayActivity extends ActionBarActivity {
         setXYDrawable(tempButton[2][2]);
 
         result = (TextView) findViewById(R.id.output);
-        newGame(result);
+        newGame(result); tempButton = new TTTView[3][3];
+
     }
 
     private void setXYDrawable(TTTView view) {
