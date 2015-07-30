@@ -12,13 +12,13 @@ import com.pragatiplusplus.tictactoe.ui.view.TTTView;
 
 public class PlayActivity extends ActionBarActivity {
 
-    String firstPlayer;
-    String secondPlayer;
-    int turn = 0;
-    private TextView result;
+    private String mFirstPlayer;
+    private String mSecondPlayer;
+    private int mTurn = 0;
+    private TextView mResult;
     private int mCircleResId;
     private int mCrossResId;
-    TTTView mTttBoard[][];
+    private TTTView mTttBoard[][];
 
     /**
      * Create Buttons
@@ -26,33 +26,29 @@ public class PlayActivity extends ActionBarActivity {
     public void createButton() {
         mTttBoard = new TTTView[3][3];
         mTttBoard[0][0] = (TTTView) findViewById(R.id.row1col1);
-        setXYDrawable(mTttBoard[0][0]);
         mTttBoard[0][1] = (TTTView) findViewById(R.id.row1col2);
-        setXYDrawable(mTttBoard[0][1]);
         mTttBoard[0][2] = (TTTView) findViewById(R.id.row1col3);
-        setXYDrawable(mTttBoard[0][2]);
         mTttBoard[1][0] = (TTTView) findViewById(R.id.row2col1);
-        setXYDrawable(mTttBoard[1][0]);
         mTttBoard[1][1] = (TTTView) findViewById(R.id.row2col2);
-        setXYDrawable(mTttBoard[1][1]);
         mTttBoard[1][2] = (TTTView) findViewById(R.id.row2col3);
-        setXYDrawable(mTttBoard[1][2]);
         mTttBoard[2][0] = (TTTView) findViewById(R.id.row3col1);
-        setXYDrawable(mTttBoard[2][0]);
         mTttBoard[2][1] = (TTTView) findViewById(R.id.row3col2);
-        setXYDrawable(mTttBoard[2][1]);
         mTttBoard[2][2] = (TTTView) findViewById(R.id.row3col3);
-        setXYDrawable(mTttBoard[2][2]);
+        mResult = (TextView) findViewById(R.id.output);
+        setXYDrawable();
+        newGame(mResult);
 
-        result = (TextView) findViewById(R.id.output);
-        newGame(result);
-        mTttBoard = new TTTView[3][3];
 
     }
 
-    private void setXYDrawable(TTTView view) {
-        view.setCircleDrawable(mCircleResId);
-        view.setCrossDrawable(mCrossResId);
+    private void setXYDrawable() {
+        for(int i = 0; i < mTttBoard.length; i++) {
+            for(int j = 0; j < mTttBoard[0].length; j++) {
+                mTttBoard[i][j].setCircleDrawable(mCircleResId);
+                mTttBoard[i][j].setCrossDrawable(mCrossResId);
+            }
+        }
+
     }
 
     /**
@@ -114,11 +110,11 @@ public class PlayActivity extends ActionBarActivity {
             play.setEnabled(false);
 
             if (isWinner(val)) {
-                result.setText(playerName + " WINS THE GAME");
+                mResult.setText(playerName + " WINS THE GAME");
                 setEnable(false);
 
             } else if (isDraw()) {
-                result.setText("DRAW");
+                mResult.setText("DRAW");
                 setEnable(false);
             }
         }
@@ -129,14 +125,12 @@ public class PlayActivity extends ActionBarActivity {
      */
     public void getTurn(View v) {
         TTTView play = (TTTView) findViewById(v.getId());
-        if (turn == 0) {
-            setValue(play, TTTView.State.CROSS, firstPlayer);
-            turn++;
-
-
-        } else if (turn == 1) {
-            setValue(play, TTTView.State.CIRCLE, secondPlayer);
-            turn--;
+        if (mTurn == 0) {
+            setValue(play, TTTView.State.CROSS, mFirstPlayer);
+            mTurn++;
+        } else if (mTurn == 1) {
+            setValue(play, TTTView.State.CIRCLE, mSecondPlayer);
+            mTurn--;
         }
 
 
@@ -152,16 +146,16 @@ public class PlayActivity extends ActionBarActivity {
                 mTttBoard[index][count].setState(TTTView.State.EMPTY);
         }
         setEnable(true);
-        result.setText("");
-        turn = 0;
+        mResult.setText("");
+        mTurn = 0;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        firstPlayer = getIntent().getStringExtra("first");
-        secondPlayer = getIntent().getStringExtra("second");
+        mFirstPlayer = getIntent().getStringExtra("first");
+        mSecondPlayer = getIntent().getStringExtra("second");
         mCircleResId = R.drawable.eraser;
         mCrossResId = R.drawable.sharpner;
         createButton();
